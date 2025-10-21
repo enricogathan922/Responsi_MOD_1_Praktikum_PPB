@@ -61,6 +61,36 @@ const updateShoeSchema = Joi.object({
     "object.min": "Minimal satu field harus diisi untuk update",
   });
 
+
+export const getShoesByStatus = async (req, res, next) => {
+  try {
+    const { status } = req.params;
+
+    if (!status || typeof status !== "string") {
+      throw new ValidationError("Invalid status", [
+        `"status" harus berupa teks yang valid`,
+      ]);
+    }
+
+    const shoes = await Shoe.findAll({
+      where: { status },
+      order: [["createdAt", "DESC"]],
+    });
+
+    if (shoes.length === 0) {
+      throw new NotFoundError(`Tidak ada sepatu dengan status "${status}"`);
+    }
+
+    return res.status(200).json({
+      status: "success",
+      data: shoes,
+      message: `Fetched shoes with status "${status}" successfully`,
+    });
+  } catch (err) {
+    next(err);
+  }
+};
+
 export const createShoe = async (req, res, next) => {
   try {
     const { error, value } = shoeSchema.validate(req.body, {
@@ -194,3 +224,4 @@ export const deleteShoe = async (req, res, next) => {
     next(err);
   }
 };
+
