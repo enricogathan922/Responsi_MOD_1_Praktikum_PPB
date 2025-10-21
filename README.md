@@ -28,6 +28,8 @@ Tujuan utama dari proyek ini adalah untuk mempermudah pencatatan serta pengelola
 | POST   | /api/shoes     | Menambahkan data sepatu baru ke dalam daftar.         |
 | PUT    | /api/shoes/:id | Memperbarui status atau detail sepatu.                |
 | DELETE | /api/shoes/:id | Menghapus data sepatu yang sudah selesai dicuci.      |
+| GET    | /api/shoes/status/:status | Mendapatkan Data Sepatu Berdasarkan Status.|
+
 
 ---
 
@@ -247,4 +249,5 @@ Dengan API ini, proses pencatatan dan pengelolaan sepatu di laundry menjadi:
   ```
   DATABASE_URL=postgresql://<user>:<password>@<host>:6543/postgres?pgbouncer=true
   ```
+
 
