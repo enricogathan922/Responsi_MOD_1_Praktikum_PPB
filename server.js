@@ -3,21 +3,25 @@ import db from "./src/models/index.js";
 
 const PORT = process.env.PORT || 3000;
 
-const startServer = async () => {
-  try {
-    await db.sequelize.authenticate();
-    console.log("✅ Database connection established.");
+if (process.env.NODE_ENV !== "production") {
+  // Jalankan server lokal
+  const start = async () => {
+    try {
+      await db.sequelize.authenticate();
+      console.log("✅ DB connection OK");
+      await db.sequelize.sync({ alter: true });
+      console.log("✅ Models synced");
 
-    await db.sequelize.sync({ alter: true });
-    console.log("✅ All models synced successfully.");
+      app.listen(PORT, () =>
+        console.log(`🚀 Server running on http://localhost:${PORT}`)
+      );
+    } catch (err) {
+      console.error("❌ Unable to connect to DB:", err);
+    }
+  };
 
-    app.listen(PORT, () => {
-      console.log(`🚀 Server running on http://localhost:${PORT}`);
-    });
-  } catch (error) {
-    console.error("❌ Failed to start server:", error.message);
-    process.exit(1);
-  }
-};
+  start();
+}
 
-startServer();
+// Export app untuk vercel
+export default app;
