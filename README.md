@@ -247,12 +247,4 @@ Dengan API ini, proses pencatatan dan pengelolaan sepatu di laundry menjadi:
   ```
   DATABASE_URL=postgresql://<user>:<password>@<host>:6543/postgres?pgbouncer=true
   ```
-- Deploy ke **Vercel**, lalu sertakan link endpoint publik di README repository GitHub.
-- Setiap response API harus mengikuti format:
-  ```
-  {
-    "status": "success" | "error",
-    "data": {},
-    "message": "string"
-  }
-  ```
+
