@@ -3,27 +3,21 @@ dotenv.config();
 
 const env = process.env.NODE_ENV || "development";
 
-const config = {
-  development: {
-    url: process.env.DATABASE_URL,
-    dialect: "postgres",
-    dialectOptions: {
-      ssl: {
-        require: true,
-        rejectUnauthorized: false,
-      },
+export const dbConfig = {
+  url: process.env.DATABASE_URL,
+  dialect: "postgres",
+  dialectOptions: {
+    ssl: {
+      require: true,
+      rejectUnauthorized: false,
     },
   },
-  production: {
-    url: process.env.DATABASE_URL,
-    dialect: "postgres",
-    dialectOptions: {
-      ssl: {
-        require: true,
-        rejectUnauthorized: false,
-      },
-    },
+  timezone: process.env.TZ || "+07:00", // default Waktu Indonesia Barat
+  define: {
+    charset: "utf8mb4",
+    collate: "utf8mb4_general_ci",
   },
+  logging: false,
 };
 
-export default config[env];
+export default dbConfig;
